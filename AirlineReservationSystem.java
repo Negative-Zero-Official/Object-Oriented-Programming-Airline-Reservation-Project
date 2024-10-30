@@ -202,7 +202,9 @@ public class AirlineReservationSystem extends Application {
     @Override
     public void start(Stage ps) {
         ps.setTitle("Airline Reservation System");
+
         Scene scene = new Scene(new FlowPane(), 600, 600);
+        
         scene.setRoot(getMainRoot(scene));
         ps.setScene(scene);
         ps.show();
