@@ -411,7 +411,7 @@ public class TravelerApplication extends Application {
         tfConfirmationPassword.setPromptText("ENTER PASSWORD TO CONFIRM DELETION");
         tfConfirmationPassword.setVisible(false);
         Button btnConfirm2 = new Button("CANCEL BOOKING");
-        btnConfirm.setVisible(false);
+        btnConfirm2.setVisible(false);
         Label lblResponse = new Label();
 
         btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
