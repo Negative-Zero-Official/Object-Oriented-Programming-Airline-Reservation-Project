@@ -20,10 +20,10 @@ public class AirlineReservationSystem extends Application {
     //     Scanner scanner = new Scanner(System.in);
 
     //     // Initialize objects for flight schedule, duty-free management, catering menu management, and flight report
-    FlightSchedule flightSchedule = new FlightSchedule();
-    DutyFreeManagement dutyFreeManagement = new DutyFreeManagement();
-    CateringMenuManagement cateringMenuManagement = new CateringMenuManagement();
-    FlightReport flightReport = new FlightReport(flightSchedule);
+    static FlightSchedule flightSchedule = new FlightSchedule();
+    static DutyFreeManagement dutyFreeManagement = new DutyFreeManagement();
+    static CateringMenuManagement cateringMenuManagement = new CateringMenuManagement();
+    static FlightReport flightReport = new FlightReport(flightSchedule);
 
     //     // Main loop to handle user interactions
     //     while (true) {
@@ -143,6 +143,14 @@ public class AirlineReservationSystem extends Application {
         Button btnLogin = new Button("Login");
         Button btnBack = new Button("Back");
         
+        btnLogin.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                Traveler trav = new Traveler(tfUsername.getText(), tfPassword.getText(), flightSchedule);
+                trav.launcher();
+            }
+        });
+
         btnBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {

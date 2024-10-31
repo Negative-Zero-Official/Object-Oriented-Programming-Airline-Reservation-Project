@@ -1,10 +1,14 @@
 package com.users;
+
+import javafx.stage.*;
+
 import java.util.Scanner;
 import com.flightmanagement.*;
 import com.exceptions.InvalidChoiceException;
 
 
 public class Traveler extends User implements Runnable {
+    public TravelerApplication app = new TravelerApplication(this);
     public Thread t;
     Scanner scanner = new Scanner(System.in);
     int noOfSeats;
@@ -21,7 +25,7 @@ public class Traveler extends User implements Runnable {
         super(loginID, password);
         mainFlightSchedule = flightSchedule;
         t = new Thread(this, loginID);
-        t.start();
+        // t.start();
     }
 
     @Override
@@ -232,7 +236,12 @@ public class Traveler extends User implements Runnable {
 
     @Override
     public void run() {
-        displayInfo();
-        menu();
+        // displayInfo();
+        // menu();
+    }
+
+    public void launcher() {
+        Stage stage = new Stage();
+        app.start(stage);
     }
 }
