@@ -1,6 +1,11 @@
 package com.users;
 
-public abstract class User {
+import javafx.application.*;
+import javafx.stage.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
+
+public abstract class User extends Application {
     String loginID, password;
 
     public User(String loginID, String password) {
@@ -8,5 +13,8 @@ public abstract class User {
         this.password = password;
     }
 
-    public abstract void launcher();
+    @Override
+    public abstract void start(Stage ps);
+
+    abstract GridPane getMainMenuGrid(Scene sc);
 }

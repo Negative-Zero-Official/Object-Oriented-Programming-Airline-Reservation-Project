@@ -27,8 +27,11 @@ public class AirlineReservationSystem extends Application {
 
         Label lblTitle = new Label("Welcome to the Airline Reservation System.\nPlease select how you want to log in:");
         Button btnTraveler = new Button("Traveler Login");
+        btnTraveler.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Button btnManager = new Button("Manager Login");
+        btnManager.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Button btnExit = new Button("Exit");
+        btnExit.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         btnTraveler.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -51,10 +54,10 @@ public class AirlineReservationSystem extends Application {
             }
         });
 
-        mainLoginGrid.add(lblTitle, 0, 0);
-        mainLoginGrid.add(btnTraveler, 0, 1);
-        mainLoginGrid.add(btnManager, 0, 2);
-        mainLoginGrid.add(btnExit, 0, 3);
+        mainLoginGrid.add(lblTitle, 0, 0, 3, 1);
+        mainLoginGrid.add(btnTraveler, 0, 1, 1, 1);
+        mainLoginGrid.add(btnManager, 1, 1, 1, 1);
+        mainLoginGrid.add(btnExit, 0, 2, 2, 1);
 
         return mainLoginGrid;
     }
@@ -74,7 +77,9 @@ public class AirlineReservationSystem extends Application {
         TextField tfPassword = new TextField();
         tfPassword.setPromptText("Password");
         Button btnLogin = new Button("Login");
+        btnLogin.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Button btnBack = new Button("Back");
+        btnBack.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         
         btnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -88,8 +93,8 @@ public class AirlineReservationSystem extends Application {
                     }
                     return;
                 }
+                @SuppressWarnings("unused")
                 Traveler trav = new Traveler(tfUsername.getText(), tfPassword.getText(), flightSchedule);
-                trav.launcher();
                 tfUsername.clear();
                 tfPassword.clear();
             }
@@ -102,13 +107,13 @@ public class AirlineReservationSystem extends Application {
             }
         });
 
-        travLoginGrid.add(lblHeader, 1, 0);
+        travLoginGrid.add(lblHeader, 1, 0, 2, 1);
         travLoginGrid.add(lblUsername, 0, 1);
-        travLoginGrid.add(tfUsername, 2, 1);
+        travLoginGrid.add(tfUsername, 1, 1);
         travLoginGrid.add(lblPassword, 0, 2);
-        travLoginGrid.add(tfPassword, 2, 2);
-        travLoginGrid.add(btnLogin, 1, 3);
-        travLoginGrid.add(btnBack, 1, 4);
+        travLoginGrid.add(tfPassword, 1, 2);
+        travLoginGrid.add(btnBack, 0, 3, 1, 1);
+        travLoginGrid.add(btnLogin, 1, 3, 1, 1);
 
         return travLoginGrid;
     }
@@ -128,7 +133,31 @@ public class AirlineReservationSystem extends Application {
         TextField tfPassword = new TextField();
         tfPassword.setPromptText("Password");
         Button btnLogin = new Button("Login");
+        btnLogin.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Button btnBack = new Button("Back");
+        btnBack.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        btnLogin.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                if (tfUsername.getText().equals("ADMIN") && tfPassword.getText().equals("Admin$123")) {
+                    Manager mng = new Manager(tfUsername.getText(), tfPassword.getText(), flightSchedule, cateringMenuManagement, dutyFreeManagement, flightReport);
+                    tfUsername.clear();
+                    tfUsername.setDisable(true);
+                    tfPassword.clear();
+                    tfPassword.setDisable(true);
+                    btnLogin.setDisable(true);
+                    btnBack.setDisable(true);
+
+                    mng.getStage().showAndWait();
+
+                    tfUsername.setDisable(false);
+                    tfPassword.setDisable(false);
+                    btnLogin.setDisable(false);
+                    btnBack.setDisable(false);
+                }
+            }
+        });
 
         btnBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -137,13 +166,13 @@ public class AirlineReservationSystem extends Application {
             }
         });
 
-        mngLoginGrid.add(lblHeader, 1, 0);
+        mngLoginGrid.add(lblHeader, 1, 0, 2, 1);
         mngLoginGrid.add(lblUsername, 0, 1);
-        mngLoginGrid.add(tfUsername, 2, 1);
+        mngLoginGrid.add(tfUsername, 1, 1);
         mngLoginGrid.add(lblPassword, 0, 2);
-        mngLoginGrid.add(tfPassword, 2, 2);
-        mngLoginGrid.add(btnLogin, 1, 3);
-        mngLoginGrid.add(btnBack, 1, 4);
+        mngLoginGrid.add(tfPassword, 1, 2);
+        mngLoginGrid.add(btnBack, 0, 3, 1, 1);
+        mngLoginGrid.add(btnLogin, 1, 3, 1, 1);
 
         return mngLoginGrid;
     }

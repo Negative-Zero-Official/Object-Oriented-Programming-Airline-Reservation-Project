@@ -5,8 +5,17 @@ import com.exceptions.*;
 import com.flightmanagement.*;
 import java.util.Scanner;
 
+import javafx.event.*;
+import javafx.geometry.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.*;
+
 @SuppressWarnings("resource")
 public class Manager extends User {
+    Stage stage = new Stage();
+    public boolean returnControl = false;
     FlightSchedule flightSchedule;
     CateringMenuManagement cateringMenuManagement;
     DutyFreeManagement dutyFreeManagement;
@@ -18,6 +27,7 @@ public class Manager extends User {
         cateringMenuManagement = cmm;
         dutyFreeManagement = dfm;
         flightReport = fr;
+        start(stage);
     }
 
     public void displayInfo() {
@@ -306,8 +316,104 @@ public class Manager extends User {
     }
 
     //####################################### JAVAFX IMPLEMENTATION PROGRAM BEGINS HERE ###############################################
+    
+    public Stage getStage() {
+        return stage;
+    }
+
     @Override
-    public void launcher() {
-        //TODO: Write the ManagerApplication Class
+    public void start(Stage ps) {
+        this.stage = ps;
+        stage.setTitle("Manager");
+        Scene scene = new Scene(new FlowPane(), 1280, 720);
+        scene.setRoot(getMainMenuGrid(scene));
+        stage.setScene(scene);
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Returning control to main window");
+        returnControl = true;
+    }
+
+    @Override
+    GridPane getMainMenuGrid(Scene scene) {
+        GridPane mainMenuGrid = new GridPane();
+        mainMenuGrid.setAlignment(Pos.CENTER);
+        mainMenuGrid.setHgap(10);
+        mainMenuGrid.setVgap(10);
+
+        Label lblWelcome = new Label("Welcome, "+loginID);
+        Label lblHeader = new Label("Please select an option from the menu below:");
+        Button btnMFlights = new Button("Manage Flights");
+        Button btnMDutyFree = new Button("Manage Duty-Free");
+        Button btnMCatering = new Button("Manage Catering");
+        Button btnLogOut = new Button("Log Out");
+        btnMFlights.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        btnMDutyFree.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        btnMCatering.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        btnLogOut.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        btnMFlights.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                scene.setRoot(getFlightMngGrid(scene));
+            }
+        });
+
+        btnLogOut.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                Stage stage = (Stage) scene.getWindow();
+                stage.close();
+            }
+        });
+
+        mainMenuGrid.add(lblWelcome, 0, 0, 2, 1);
+        mainMenuGrid.add(lblHeader, 0, 1, 3, 1);
+        mainMenuGrid.add(btnMFlights, 0, 2);
+        mainMenuGrid.add(btnMDutyFree, 1, 2);
+        mainMenuGrid.add(btnMCatering, 0, 3);
+        mainMenuGrid.add(btnLogOut, 1, 3);
+
+        return mainMenuGrid;
+    }
+
+    GridPane getFlightMngGrid(Scene scene) {
+        GridPane flightMngGrid = new GridPane();
+        flightMngGrid.setAlignment(Pos.CENTER);
+        flightMngGrid.setHgap(10);
+        flightMngGrid.setVgap(10);
+
+        Label lblHeader = new Label("Please select an option from the menu below:");
+        Button btnFlightReport = new Button("Flight Report");
+        btnFlightReport.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        Button btnAddFlight = new Button("Add Flight");
+        btnAddFlight.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        Button btnUpdateFlight = new Button("Update Flight");
+        btnUpdateFlight.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        Button btnViewFlights = new Button("View Flights");
+        btnViewFlights.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        Button btnDeleteFlight = new Button("Delete Flight");
+        btnDeleteFlight.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        Button btnBack = new Button("Back");
+        btnBack.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        btnBack.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                scene.setRoot(getMainMenuGrid(scene));
+            }
+        });
+
+        flightMngGrid.add(lblHeader, 0, 0, 3, 1);
+        flightMngGrid.add(btnFlightReport, 0, 1);
+        flightMngGrid.add(btnAddFlight, 1, 1);
+        flightMngGrid.add(btnUpdateFlight, 0, 2);
+        flightMngGrid.add(btnViewFlights, 1, 2);
+        flightMngGrid.add(btnDeleteFlight, 0, 3);
+        flightMngGrid.add(btnBack, 1, 3);
+
+        return flightMngGrid;
     }
 }
