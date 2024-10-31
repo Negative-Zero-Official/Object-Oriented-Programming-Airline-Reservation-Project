@@ -51,14 +51,24 @@ public class TravelerApplication extends Application {
         btnBook.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
-                scene.setRoot(getBookingGridOne(scene));
+                try {
+                    scene.setRoot(getBookingGridOne(scene));
+                } catch (InvalidChoiceException e) {
+                    @SuppressWarnings("unused")
+                    ExceptionWindow error = new ExceptionWindow(e);
+                }
             }
         });
 
         btnCancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
-                scene.setRoot(getCancelGrid(scene));
+                try {
+                    scene.setRoot(getCancelGrid(scene));
+                } catch (InvalidChoiceException e) {
+                    @SuppressWarnings("unused")
+                    ExceptionWindow error = new ExceptionWindow(e);
+                }
             }
         });
 
@@ -153,7 +163,10 @@ public class TravelerApplication extends Application {
         return flightSchedGrid;
     }
 
-    GridPane getBookingGridOne(Scene scene) {
+    GridPane getBookingGridOne(Scene scene) throws InvalidChoiceException {
+        if (trav.booked!=null) {
+            throw new InvalidChoiceException("You have already booked a flight.  Please cancel your booking first.");
+        }
         GridPane bookingGrid = new GridPane();
         bookingGrid.setAlignment(Pos.CENTER);
         bookingGrid.setHgap(10);
@@ -173,7 +186,7 @@ public class TravelerApplication extends Application {
         }
         Label lblYear = new Label("Select year:");
         ComboBox<Integer> cboxYear = new ComboBox<>();
-        for (int i=2015; i<=2025; i++) {
+        for (int i=2024; i<=2034; i++) {
             cboxYear.getItems().add(i);
         }
 
@@ -265,7 +278,12 @@ public class TravelerApplication extends Application {
         btnBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
-                scene.setRoot(getBookingGridOne(scene));
+                try {
+                    scene.setRoot(getBookingGridOne(scene));
+                } catch (InvalidChoiceException e) {
+                    @SuppressWarnings("unused")
+                    ExceptionWindow error = new ExceptionWindow(e);
+                }
             }
         });
 
@@ -280,6 +298,7 @@ public class TravelerApplication extends Application {
     }
 
     GridPane getBookingGridThree(Scene scene, Flight selected) {
+
         GridPane bookingGrid = new GridPane();
         bookingGrid.setAlignment(Pos.CENTER);
         bookingGrid.setHgap(10);
@@ -330,6 +349,7 @@ public class TravelerApplication extends Application {
                 trav.bookedSeatPrice = trav.booked.getPrice(trav.classChoice);
                 selected.updateVacantSeats(selectedItem, -1*noOfSeats);
                 lblResponse.setText("Successfully booked "+noOfSeats+" "+selectedItem+" seats for Flight "+selected.flightId);
+                btnBook.setDisable(true);
                 Stage invoice = new Stage();
                 invoice.setTitle("Generated Invoice for Flight Booking");
                 Scene invoiceScene = new Scene(new FlowPane(), 600, 600);
@@ -373,12 +393,12 @@ public class TravelerApplication extends Application {
         Label lblFlightId = new Label("Flight ID: " + trav.booked.flightId);
         Label lblClass = new Label("Class: " + trav.classChoice);
         Label lblNoOfSeats = new Label("Number of Seats: " + trav.noOfSeats);
-        Label lblPrice = new Label("Price per Seat: " + trav.bookedSeatPrice);
+        Label lblPrice = new Label(String.format("Price per Seat: $ %.2f", trav.bookedSeatPrice));
         double subTotal = trav.bookedSeatPrice * trav.noOfSeats;
         double serviceTax = 0.05*subTotal;
-        Label lblSubTotal = new Label("Sub Total: "+subTotal);
-        Label lblServiceTax = new Label("Service Tax: "+serviceTax);
-        Label lblTotalPrice = new Label("Total Price: "+(subTotal+serviceTax));
+        Label lblSubTotal = new Label(String.format("Sub Total: $ %.2f", subTotal));
+        Label lblServiceTax = new Label(String.format("Service Tax: $ %.2f", serviceTax));
+        Label lblTotalPrice = new Label(String.format("Total Price: $ %.2f", (subTotal+serviceTax)));
         Label lblDate = new Label("Date: " + trav.booked.date);
 
         invoiceGrid.add(lblInvoiceHeader, 0, 0);
@@ -394,7 +414,10 @@ public class TravelerApplication extends Application {
         return invoiceGrid;
     }
 
-    GridPane getCancelGrid(Scene scene) {
+    GridPane getCancelGrid(Scene scene) throws InvalidChoiceException {
+        if (trav.booked==null) {
+            throw new InvalidChoiceException("You have not booked a flight.");
+        }
         GridPane cancelGrid = new GridPane();
         cancelGrid.setAlignment(Pos.CENTER);
         cancelGrid.setHgap(10);

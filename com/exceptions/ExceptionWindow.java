@@ -20,6 +20,7 @@ public class ExceptionWindow extends Application {
     public void start(Stage ps) {
         ps.setTitle("ERROR!!!");
         GridPane gp = new GridPane();
+        gp.setPadding(new Insets(10));
         gp.setAlignment(Pos.CENTER);
         gp.setHgap(10);
         gp.setVgap(10);
@@ -37,7 +38,7 @@ public class ExceptionWindow extends Application {
         gp.add(lblErrorMessage, 0, 0);
         gp.add(btnClose, 0, 1);
 
-        Scene sc = new Scene(gp, 300, 200);
+        Scene sc = new Scene(gp);
         ps.setScene(sc);
         ps.show();
     }

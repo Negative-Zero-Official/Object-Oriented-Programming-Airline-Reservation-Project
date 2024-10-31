@@ -66,10 +66,10 @@ public class FlightSchedule {
                 flightSchedViewGrid.add(new Label(flight.date.toString()), 3, i + 3);
                 flightSchedViewGrid.add(new Label(String.valueOf(flight.totalSeats)), 4, i + 3);
                 flightSchedViewGrid.add(new Label(flight.status), 5, i + 3);
-                flightSchedViewGrid.add(new Label(String.valueOf(flight.economySeatPrice)), 6, i + 3);
-                flightSchedViewGrid.add(new Label(String.valueOf(flight.businessSeatPrice)), 7, i + 3);
-                flightSchedViewGrid.add(new Label(String.valueOf(flight.firstSeatPrice)), 8, i + 3);
-                flightSchedViewGrid.add(new Label(String.valueOf(flight.residenceSeatPrice)), 9, i + 3);
+                flightSchedViewGrid.add(new Label(flight.displayPrice("Economy")), 6, i + 3);
+                flightSchedViewGrid.add(new Label(flight.displayPrice("Business")), 7, i + 3);
+                flightSchedViewGrid.add(new Label(flight.displayPrice("First")), 8, i + 3);
+                flightSchedViewGrid.add(new Label(flight.displayPrice("Residence")), 9, i + 3);
             }
         }
 

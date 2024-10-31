@@ -8,6 +8,7 @@ import javafx.stage.*;
 
 import com.catering.*;
 import com.dutyfree.*;
+import com.exceptions.*;
 import com.flightmanagement.*;
 import com.users.*;
 
@@ -78,6 +79,14 @@ public class AirlineReservationSystem extends Application {
         btnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
+                if (tfUsername.getText()==null || tfPassword.getText()==null) {
+                    try {
+                        throw new InvalidChoiceException("One of the mandatory options was not provided.");
+                    } catch (InvalidChoiceException e) {
+                        @SuppressWarnings("unused")
+                        ExceptionWindow error = new ExceptionWindow(e);
+                    }
+                }
                 Traveler trav = new Traveler(tfUsername.getText(), tfPassword.getText(), flightSchedule);
                 trav.launcher();
                 tfUsername.clear();
@@ -140,9 +149,9 @@ public class AirlineReservationSystem extends Application {
     public static void main(String[] args) {
 
         //Adding random flights to flightSchedule for testing
-        DATE date1 = new DATE(15, 10, 2023); // 15th October 2023
-        DATE date2 = new DATE(20, 10, 2023); // 20th October 2023
-        DATE date3 = new DATE(5, 11, 2023);  // 5th November 2023
+        DATE date1 = new DATE(15, 10, 2025); // 15th October 2025
+        DATE date2 = new DATE(20, 10, 2025); // 20th October 2025
+        DATE date3 = new DATE(5, 11, 2024);  // 5th November 2024
 
         // Create random flights
         Flight flight1 = new Flight("FL123", "New York", "Los Angeles", date1, 
