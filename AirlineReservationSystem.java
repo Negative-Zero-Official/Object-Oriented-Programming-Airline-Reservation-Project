@@ -86,6 +86,7 @@ public class AirlineReservationSystem extends Application {
                         @SuppressWarnings("unused")
                         ExceptionWindow error = new ExceptionWindow(e);
                     }
+                    return;
                 }
                 Traveler trav = new Traveler(tfUsername.getText(), tfPassword.getText(), flightSchedule);
                 trav.launcher();
