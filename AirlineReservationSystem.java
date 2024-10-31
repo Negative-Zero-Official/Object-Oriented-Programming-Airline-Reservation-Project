@@ -79,7 +79,7 @@ public class AirlineReservationSystem extends Application {
         btnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
-                if (tfUsername.getText()==null || tfPassword.getText()==null) {
+                if (tfUsername.getText().equals("") || tfPassword.getText().equals("")) {
                     try {
                         throw new InvalidChoiceException("One of the mandatory options was not provided.");
                     } catch (InvalidChoiceException e) {
