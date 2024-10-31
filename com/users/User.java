@@ -8,7 +8,5 @@ public abstract class User {
         this.password = password;
     }
 
-    public abstract void menu();
-
-    public abstract void displayInfo();
+    public abstract void launcher();
 }

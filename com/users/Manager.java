@@ -20,7 +20,6 @@ public class Manager extends User {
         flightReport = fr;
     }
 
-    @Override
     public void displayInfo() {
         System.out.println("Welcome, Manager " + loginID + "!");
         System.out.println("You have administrator permissions.");
@@ -62,7 +61,7 @@ public class Manager extends User {
                                     updateFlight(flightSchedule);
                                     break;
                                 case 4:
-                                    flightSchedule.viewFlights();
+                                    // flightSchedule.viewFlights();
                                     break;
                                 case 5:
                                     deleteFlight(flightSchedule);
@@ -304,5 +303,11 @@ public class Manager extends User {
         }
         System.out.println("Flight not found.");
         
+    }
+
+    //####################################### JAVAFX IMPLEMENTATION PROGRAM BEGINS HERE ###############################################
+    @Override
+    public void launcher() {
+        //TODO: Write the ManagerApplication Class
     }
 }

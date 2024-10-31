@@ -5,6 +5,13 @@ public class DATE {
     public int month;
     public int year;
 
+    public DATE() {}
+    
+    public DATE(int d, int m, int y) {
+        day=d;
+        month=m;
+        year=y;
+    }
     @Override
     public String toString() {
         return day + "/" + month + "/" + year;

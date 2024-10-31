@@ -1,17 +1,17 @@
 import javafx.application.*;
-import javafx.stage.*;
+import javafx.event.*;
+import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.geometry.*;
-import javafx.event.*;
+import javafx.stage.*;
 
 import com.catering.*;
 import com.dutyfree.*;
-import com.exceptions.*;
+// import com.exceptions.*;
 import com.flightmanagement.*;
 import com.users.*;
-import java.util.Scanner;
+// import java.util.Scanner;
 
 // Suppress warnings about resource leaks (e.g., not closing the Scanner)
 public class AirlineReservationSystem extends Application {
@@ -148,6 +148,8 @@ public class AirlineReservationSystem extends Application {
             public void handle(ActionEvent o) {
                 Traveler trav = new Traveler(tfUsername.getText(), tfPassword.getText(), flightSchedule);
                 trav.launcher();
+                tfUsername.clear();
+                tfPassword.clear();
             }
         });
 
@@ -204,6 +206,37 @@ public class AirlineReservationSystem extends Application {
         return mngLoginGrid;
     }
     public static void main(String[] args) {
+
+        //Adding random flights to flightSchedule for testing
+        DATE date1 = new DATE(15, 10, 2023); // 15th October 2023
+        DATE date2 = new DATE(20, 10, 2023); // 20th October 2023
+        DATE date3 = new DATE(5, 11, 2023);  // 5th November 2023
+
+        // Create random flights
+        Flight flight1 = new Flight("FL123", "New York", "Los Angeles", date1, 
+                                     FlightType.DOMESTIC, 200, true, true, 
+                                     150, 150.0, 
+                                     30, 300.0, 
+                                     20, 500.0, 
+                                     0, 0.0); // No residence seats
+
+        Flight flight2 = new Flight("FL456", "London", "New York", date2, 
+                                     FlightType.INTERNATIONAL, 300, true, false, 
+                                     180, 200.0, 
+                                     50, 400.0, 
+                                     30, 600.0, 
+                                     40, 250.0); // 40 residence seats
+
+        Flight flight3 = new Flight("FL789", "Tokyo", "Seoul", date3, 
+                                     FlightType.INTERNATIONAL, 150, false, true, 
+                                     100, 100.0, 
+                                     30, 250.0, 
+                                     20, 400.0, 
+                                     0, 0.0); // No residence seats
+        flightSchedule.addFlight(flight1);
+        flightSchedule.addFlight(flight2);
+        flightSchedule.addFlight(flight3);
+
         launch();
     }
 
@@ -211,10 +244,11 @@ public class AirlineReservationSystem extends Application {
     public void start(Stage ps) {
         ps.setTitle("Airline Reservation System");
 
-        Scene scene = new Scene(new FlowPane(), 600, 600);
+        Scene scene = new Scene(new FlowPane(), 1280, 720);
         
         scene.setRoot(getMainRoot(scene));
         ps.setScene(scene);
         ps.show();
+        // ps.setMaximized(true);
     }
 }

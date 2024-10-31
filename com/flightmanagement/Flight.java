@@ -29,6 +29,46 @@ public class Flight {
     CateringMenuManagement cateringMenu = new CateringMenuManagement();
     DutyFreeManagement DutyFree = new DutyFreeManagement();
 
+    //Default Constructor
+    public Flight() {}
+
+    //Constructor to add hard coded flights for testing
+    public Flight(String flightId, String origin, String destination, DATE date, FlightType type, 
+                int totalSeats, boolean cateringAvailable, boolean dutyFreeAvailable, 
+                int economySeats, double economySeatPrice, 
+                int businessSeats, double businessSeatPrice, 
+                int firstSeats, double firstSeatPrice, 
+                int residenceSeats, double residenceSeatPrice) {
+        this.flightId = flightId;
+        this.origin = origin;
+        this.destination = destination;
+        this.date = date; // Assuming DATE has a constructor that can take day, month, year
+        this.type = type;
+        this.totalSeats = totalSeats;
+        this.cateringAvailable = cateringAvailable;
+        this.dutyFreeAvailable = dutyFreeAvailable;
+        
+        // Initialize seat counts and prices
+        this.economySeats = economySeats;
+        this.vacantEconomySeats = economySeats; // Initially, all economy seats are vacant
+        this.economySeatPrice = economySeatPrice;
+
+        this.businessSeats = businessSeats;
+        this.vacantBusinessSeats = businessSeats; // Initially, all business seats are vacant
+        this.businessSeatPrice = businessSeatPrice;
+
+        this.firstSeats = firstSeats;
+        this.vacantFirstSeats = firstSeats; // Initially, all first class seats are vacant
+        this.firstSeatPrice = firstSeatPrice;
+
+        this.residenceSeats = residenceSeats;
+        this.vacantResidenceSeats = residenceSeats; // Initially, all residence seats are vacant
+        this.residenceSeatPrice = residenceSeatPrice;
+
+        // Set the initial status of the flight (optional, can be modified as needed)
+        this.status = "Scheduled"; // Default status
+    }
+
     public void manageCateringMenu() {
         try {
             cateringMenu.manageCatering();
@@ -152,5 +192,10 @@ public class Flight {
 
     public void printDutyFreeItems() {
         DutyFree.printDutyFreeItems();
+    }
+
+    @Override
+    public String toString() {
+        return flightId;
     }
 }
