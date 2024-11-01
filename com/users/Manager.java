@@ -637,6 +637,7 @@ public class Manager extends User {
                 flight.residenceSeats = Integer.parseInt(tfResidenceSeats.getText());
                 flight.residenceSeatPrice = Double.parseDouble(tfResidencePrice.getText());
 
+                flight.fill();
                 lblResponse.setText("Successfully updated flight "+flight.flightId);
             }
         });
