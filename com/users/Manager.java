@@ -64,10 +64,10 @@ public class Manager extends User {
                                     flightReport.menu();
                                     break;
                                 case 2:
-                                    addFlight(flightSchedule);
+                                    // addFlight(flightSchedule);
                                     break;
                                 case 3:
-                                    updateFlight(flightSchedule);
+                                    // updateFlight(flightSchedule);
                                     break;
                                 case 4:
                                     // flightSchedule.viewFlights();
@@ -95,206 +95,10 @@ public class Manager extends User {
                     default:
                         throw new InvalidChoiceException("Invalid choice. Please try again.");
                 }
-            } catch (InvalidChoiceException | ExceededMaxSizeException e) {
+            } catch (InvalidChoiceException e) {
                 System.out.println(e.getMessage());
             }
         }
-    }
-
-    // Add flight method
-    public void addFlight(FlightSchedule flightSchedule) throws ExceededMaxSizeException {
-        if (flightSchedule.flightCount==flightSchedule.maxSize) {
-            throw new ExceededMaxSizeException("Too many flights for system. Please create new schedule object to continue adding flights.");
-        }
-        Scanner sc = new Scanner(System.in);
-        Flight flight = new Flight();
-
-        System.out.print("Flight ID: ");
-        flight.flightId = sc.nextLine();
-
-        System.out.print("Flight type (DOMESTIC/INTERNATIONAL): ");
-        String strFlightType = sc.nextLine();
-        flight.type = FlightType.valueOf(strFlightType);
-
-        System.out.print("Origin: ");
-        flight.origin = sc.nextLine();
-
-        System.out.print("Destination: ");
-        flight.destination = sc.nextLine();
-
-        System.out.println("Date: ");
-        flight.setDate();
-
-        System.out.print("Total Seats: ");
-        flight.totalSeats = sc.nextInt();
-        sc.nextLine(); // Consume newline
-
-        System.out.print("Catering Availability (true/false): ");
-        flight.cateringAvailable = sc.nextBoolean();
-        sc.nextLine(); // Consume newline
-        if (flight.cateringAvailable) {
-            flight.manageCateringMenu();
-        }
-
-        System.out.print("Duty-Free Availability (true/false): ");
-        flight.dutyFreeAvailable = sc.nextBoolean();
-        sc.nextLine(); // Consume newline
-        if (flight.dutyFreeAvailable) {
-            flight.manageDutyFree();
-        }
-
-        System.out.print("Status: ");
-        flight.status = sc.nextLine();
-
-        System.out.print("Number of Economy Seats: ");
-        flight.economySeats = sc.nextInt();
-        flight.vacantEconomySeats = flight.economySeats;
-        sc.nextLine(); // Consumer newline
-
-        if (flight.economySeats>0) {
-            System.out.print("Seat Price for Economy: ");
-            flight.economySeatPrice = sc.nextDouble();
-            sc.nextLine(); // Consume newline
-        }
-
-        System.out.print("Number of Business Seats: ");
-        flight.businessSeats = sc.nextInt();
-        flight.vacantBusinessSeats = flight.businessSeats;
-        sc.nextLine(); // Consume newline
-
-        if (flight.businessSeats>0) {
-            System.out.print("Seat Price for Business: ");
-            flight.businessSeatPrice = sc.nextDouble();
-            sc.nextLine(); //Consume newline
-        }
-
-        System.out.print("Number of First Seats: ");
-        flight.firstSeats = sc.nextInt();
-        flight.vacantFirstSeats = flight.firstSeats;
-        sc.nextLine(); // Consume newline
-
-        if (flight.firstSeats>0) {
-            System.out.print("Seat Price for First: ");
-            flight.firstSeatPrice = sc.nextDouble();
-            sc.nextLine(); // Consume newline
-        }
-
-        System.out.print("Number of Residence seats: ");
-        flight.residenceSeats = sc.nextInt();
-        flight.vacantResidenceSeats = flight.residenceSeats;
-        sc.nextLine(); // Consume newline
-
-        if (flight.residenceSeats>0) {
-            System.out.print("Seat Price for Residence: ");
-            flight.residenceSeatPrice = sc.nextDouble();
-            sc.nextLine(); // Consume newline
-        }
-
-        // Add the flight to the schedule
-        flightSchedule.addFlight(flight);
-        System.out.println("Successfully added flight " + flight.flightId + " to the schedule.");
-    }
-
-    // Update flight method
-    public void updateFlight(FlightSchedule sch) throws InvalidChoiceException {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter Flight ID of flight to update: ");
-        String identifier = sc.nextLine();
-        Flight flight = null;
-        for (Flight fl : sch.flightList) {
-            if (identifier.equals(fl.flightId)) {
-                flight = fl;
-                break;
-            }
-        }
-
-        if (flight == null) {
-            throw new InvalidChoiceException("Flight not found.");
-        }
-
-        System.out.println("\n1. Flight ID \n2. Flight type \n3. Origin \n4. Destination \n5. Date \n6. Total Seats \n7. Ticket Price \n8. Catering Availability \n9. Duty-Free Availability\n10. Status \n11. Exit");
-        System.out.print("What do you want to update: ");
-        int choice = sc.nextInt();
-        sc.nextLine(); // Consume newline
-
-        switch (choice) {
-            case 1:
-                System.out.println("Current Flight ID: " + flight.flightId);
-                System.out.print("New Flight ID: ");
-                flight.flightId = sc.nextLine();
-                System.out.println("Flight ID updated successfully!");
-                break;
-            case 2:
-                System.out.println("Current flight type: "+flight.type);
-                System.out.print("New flight type: ");
-                String strFlightType = sc.nextLine();
-                flight.type = FlightType.valueOf(strFlightType);
-                System.out.println("Flight type updated successfully!");
-                break;
-            case 3:
-                System.out.println("Current Origin: " + flight.origin);
-                System.out.print("New Origin: ");
-                flight.origin = sc.nextLine();
-                System.out.println("Origin updated successfully!");
-                break;
-            case 4:
-                System.out.println("Current Destination: " + flight.destination);
-                System.out.print("New Destination: ");
-                flight.destination = sc.nextLine();
-                System.out.println("Destination updated successfully!");
-                break;
-            case 5:
-                System.out.println("Current Date: "+flight.getDate());
-                System.out.println("Set new date: ");
-                flight.setDate();
-                System.out.println("Date updated scuccessfully.");
-                break;
-            case 6:
-                System.out.println("Current Total Seats: " + flight.totalSeats);
-                System.out.print("New Total Seats: ");
-                flight.totalSeats = sc.nextInt();
-                sc.nextLine(); // Consume newline
-                System.out.println("Total seats updated successfully!");
-                break;
-            case 7:
-                System.out.println("Current Economy Seat Price: " + flight.economySeatPrice);
-                System.out.print("New Economy Seat Price: ");
-                flight.economySeatPrice = sc.nextDouble();
-                sc.nextLine(); //Consume newLine
-                System.out.println("Economy seat price updated successfully!");
-                break;
-            case 8:
-                System.out.println("Current Catering Availability: " + flight.cateringAvailable);
-                System.out.print("New Catering Availability: ");
-                flight.cateringAvailable = sc.nextBoolean();
-                sc.nextLine(); // Consume newline
-                System.out.println("Catering availability updated successfully!");
-                if (flight.cateringAvailable) {
-                    flight.manageCateringMenu();
-                }
-                break;
-            case 9:
-                System.out.println("Current Duty-Free Availability: "+flight.dutyFreeAvailable);
-                System.out.print("New Duty-Free Availability: ");
-                flight.dutyFreeAvailable = sc.nextBoolean();
-                sc.nextLine();
-                if (flight.dutyFreeAvailable) {
-                    flight.manageDutyFree();
-                }
-                break;
-            case 10:
-                System.out.println("Current Status: " + flight.status);
-                System.out.print("New Status: ");
-                flight.status = sc.nextLine();
-                System.out.println("Status updated successfully!");
-                break;
-            case 11:
-                System.out.println("Exiting...");
-                break;
-            default:
-                throw new InvalidChoiceException("Invalid choice!");
-        }
-        
     }
 
     // Method to delete flight
@@ -427,6 +231,13 @@ public class Manager extends User {
             @Override
             public void handle(ActionEvent o) {
                 scene.setRoot(getViewFlightGrid(scene));
+            }
+        });
+
+        btnDeleteFlight.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                scene.setRoot(getDelFlightGrid(scene));
             }
         });
 
@@ -774,63 +585,6 @@ public class Manager extends User {
         cboxFlightId.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
-                if (cboxFlightId.getSelectionModel().getSelectedItem()==null) {
-                    cboxFlightType.getSelectionModel().clearSelection();
-                    tfOrigin.clear();
-                    tfDestination.clear();
-                    cboxDay.getSelectionModel().clearSelection();
-                    cboxMonth.getSelectionModel().clearSelection();
-                    cboxYear.getSelectionModel().clearSelection();
-                    cboxCatering.getSelectionModel().clearSelection();
-                    cboxDutyFree.getSelectionModel().clearSelection();
-                    cboxStatus.getSelectionModel().clearSelection();
-                    tfEconomySeats.clear();
-                    tfEconomyPrice.clear();
-                    tfBusinessSeats.clear();
-                    tfBusinessPrice.clear();
-                    tfFirstSeats.clear();
-                    tfFirstPrice.clear();
-                    tfResidenceSeats.clear();
-                    tfResidencePrice.clear();
-                    lblFlightType.setDisable(true);
-                    cboxFlightType.setDisable(true);
-                    lblOrigin.setDisable(true);
-                    tfOrigin.setDisable(true);
-                    lblDestination.setDisable(true);
-                    tfDestination.setDisable(true);
-                    lblDate.setDisable(true);
-                    lblDay.setDisable(true);
-                    cboxDay.setDisable(true);
-                    lblMonth.setDisable(true);
-                    cboxMonth.setDisable(true);
-                    lblYear.setDisable(true);
-                    cboxYear.setDisable(true);
-                    lblCatering.setDisable(true);
-                    cboxCatering.setDisable(true);
-                    lblDutyFree.setDisable(true);
-                    cboxDutyFree.setDisable(true);
-                    cboxStatus.setDisable(true);
-                    lblEconomySeats.setDisable(true);
-                    tfEconomySeats.setDisable(true);
-                    lblEconomyPrice.setDisable(true);
-                    tfEconomyPrice.setDisable(true);
-                    lblBusinessSeats.setDisable(true);
-                    tfBusinessSeats.setDisable(true);
-                    lblBusinessPrice.setDisable(true);
-                    tfBusinessPrice.setDisable(true);
-                    lblFirstSeats.setDisable(true);
-                    tfFirstSeats.setDisable(true);
-                    lblFirstPrice.setDisable(true);
-                    tfFirstPrice.setDisable(true);
-                    lblResidenceSeats.setDisable(true);
-                    tfResidenceSeats.setDisable(true);
-                    lblResidencePrice.setDisable(true);
-                    tfResidencePrice.setDisable(true);
-                    lblResponse.setDisable(true);
-                    btnUpdate.setDisable(true);
-                    return;
-                }
-
                 Flight flight = cboxFlightId.getSelectionModel().getSelectedItem();
 
                 lblFlightType.setDisable(false);
@@ -1028,6 +782,99 @@ public class Manager extends User {
         scene.setRoot(viewFlightGrid);
         return viewFlightGrid;
 
+    }
+
+    GridPane getDelFlightGrid(Scene scene) {
+        GridPane delFlightGrid = new GridPane();
+        delFlightGrid.setAlignment(Pos.CENTER);
+        delFlightGrid.setHgap(10);
+        delFlightGrid.setVgap(10);
+
+        Label lblHeader = new Label("DELETE FLIGHT");
+        Label lblInfo = new Label("To undo deletion go to update flight and change the status to Scheduled or Delayed.");
+        Label lblFlightId = new Label("Select flight:");
+        ComboBox<Flight> cboxFlightId = new ComboBox<>();
+        for (int i=0; i<flightSchedule.flightCount; i++) {
+            cboxFlightId.getItems().add(flightSchedule.flightList[i]);
+        }
+
+        Label lblOrigin = new Label("Origin: ");
+        lblOrigin.setDisable(true);
+        Label lblDestination = new Label("Destination: ");
+        lblDestination.setDisable(true);
+        Label lblDate = new Label("Date: ");
+        lblDate.setDisable(true);
+        Label lblFlightType = new Label("Flight Type: ");
+        lblFlightType.setDisable(true);
+        Label lblStatus = new Label("Status: ");
+        lblStatus.setDisable(true);
+
+        Button btnDel = new Button("Delete");
+        btnDel.setDisable(true);
+        Button btnBack = new Button("Back");
+        
+        Label lblResponse = new Label();
+        lblResponse.setDisable(true);
+
+        cboxFlightId.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                Flight flight = cboxFlightId.getSelectionModel().getSelectedItem();
+                lblOrigin.setDisable(false);
+                lblDestination.setDisable(false);
+                lblDate.setDisable(false);
+                lblFlightType.setDisable(false);
+                lblStatus.setDisable(false);
+                btnDel.setDisable(false);
+                lblResponse.setDisable(false);
+
+                lblOrigin.setText("Origin: "+flight.origin);
+                lblDestination.setText("Destination: "+flight.destination);
+                lblDate.setText("Date: "+flight.date);
+                lblFlightType.setText("Flight Type: "+flight.type);
+                lblStatus.setText("Status: "+flight.status);
+            }
+        });
+
+        btnDel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                Flight flight = cboxFlightId.getSelectionModel().getSelectedItem();
+                if (flight.status.equals("Cancelled")) {
+                    try {
+                        throw new InvalidChoiceException("Flight already cancelled.");
+                    } catch (InvalidChoiceException e) {
+                        @SuppressWarnings("unused")
+                        ExceptionWindow error = new ExceptionWindow(e);
+                    }
+                }
+                flight.status = "Cancelled";
+                lblStatus.setText("Status: Cancelled");
+                lblResponse.setText("Flight "+flight.flightId+" successfully cancelled.");
+            }
+        });
+
+        btnBack.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                scene.setRoot(getFlightMngGrid(scene));
+            }
+        });
+
+        delFlightGrid.add(lblHeader, 0, 0, 2, 1);
+        delFlightGrid.add(lblInfo, 0, 1, 2, 1);
+        delFlightGrid.add(lblFlightId, 0, 2, 2, 1);
+        delFlightGrid.add(cboxFlightId, 0, 3, 2, 1);
+        delFlightGrid.add(lblOrigin, 0, 4, 2, 1);
+        delFlightGrid.add(lblDestination, 0, 5, 2, 1);
+        delFlightGrid.add(lblDate, 0, 6, 2, 1);
+        delFlightGrid.add(lblFlightType, 0, 7, 2, 1);
+        delFlightGrid.add(lblStatus, 0, 8, 2, 1);
+        delFlightGrid.add(btnDel, 0, 9, 1, 1);
+        delFlightGrid.add(btnBack, 1, 9, 1, 1);
+        delFlightGrid.add(lblResponse, 0, 10, 2, 1);
+
+        return delFlightGrid;
     }
 
     private void fillBlankTextField(TextField tf) {

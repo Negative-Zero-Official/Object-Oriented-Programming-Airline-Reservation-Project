@@ -68,6 +68,8 @@ public class Traveler extends User {
         btnBook.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Button btnCancel = new Button("Cancel Flight Tickets");
         btnCancel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        Button btnInvoice = new Button("View Invoice");
+        btnInvoice.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Button btnLogOut = new Button("Log Out");
         btnLogOut.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
@@ -109,6 +111,27 @@ public class Traveler extends User {
             }
         });
 
+        btnInvoice.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                if (booked==null) {
+                    try {
+                        throw new InvalidChoiceException("You have not booked a flight.\nPlease book a flight to generate invoice.");
+                    } catch (InvalidChoiceException e) {
+                        @SuppressWarnings("unused")
+                        ExceptionWindow error = new ExceptionWindow(e);
+                        return;
+                    }
+                }
+                Stage invoice = new Stage();
+                invoice.setTitle("Generated Invoice for Flight Booking");
+                Scene invoiceScene = new Scene(new FlowPane(), 600, 600);
+                invoiceScene.setRoot(getInvoiceGrid());
+                invoice.setScene(invoiceScene);
+                invoice.show();
+            }
+        });
+
         btnLogOut.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
@@ -123,7 +146,8 @@ public class Traveler extends User {
         mainMenu.add(btnFlightSchedule, 1, 2);
         mainMenu.add(btnBook, 0, 3);
         mainMenu.add(btnCancel, 1, 3);
-        mainMenu.add(btnLogOut, 0, 4);
+        mainMenu.add(btnInvoice, 0, 4);
+        mainMenu.add(btnLogOut, 1, 4);
 
         return mainMenu;
     }

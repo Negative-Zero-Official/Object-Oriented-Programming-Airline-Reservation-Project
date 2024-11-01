@@ -142,8 +142,10 @@ public class AirlineReservationSystem extends Application {
             public void handle(ActionEvent o) {
                 if (tfUsername.getText().equals("ADMIN") && tfPassword.getText().equals("Admin$123")) {
                     Manager mng = new Manager(tfUsername.getText(), tfPassword.getText(), flightSchedule, cateringMenuManagement, dutyFreeManagement, flightReport);
+                    lblUsername.setDisable(true);
                     tfUsername.clear();
                     tfUsername.setDisable(true);
+                    lblPassword.setDisable(true);
                     tfPassword.clear();
                     tfPassword.setDisable(true);
                     btnLogin.setDisable(true);
@@ -151,7 +153,9 @@ public class AirlineReservationSystem extends Application {
 
                     mng.getStage().showAndWait();
 
+                    lblUsername.setDisable(false);
                     tfUsername.setDisable(false);
+                    lblPassword.setDisable(false);
                     tfPassword.setDisable(false);
                     btnLogin.setDisable(false);
                     btnBack.setDisable(false);
