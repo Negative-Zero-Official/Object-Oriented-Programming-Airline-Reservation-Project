@@ -69,6 +69,12 @@ public class Manager extends User {
             }
         });
 
+        btnMDutyFree.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent o) {
+                scene.setRoot(getDutyFreeMngGrid(scene));
+            }
+        });
+
         btnMCatering.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
@@ -229,7 +235,7 @@ public class Manager extends User {
         cboxCatering.getItems().addAll(Boolean.TRUE, Boolean.FALSE);
         cboxCatering.setValue(Boolean.FALSE);
 
-        Label lblDutyFree = new Label("Catering Availability:");
+        Label lblDutyFree = new Label("Duty Free Availability:");
         ComboBox<Boolean> cboxDutyFree = new ComboBox<>();
         cboxDutyFree.getItems().addAll(Boolean.TRUE, Boolean.FALSE);
         cboxDutyFree.setValue(Boolean.FALSE);
@@ -443,7 +449,7 @@ public class Manager extends User {
         cboxCatering.getItems().addAll(Boolean.TRUE, Boolean.FALSE);
         cboxCatering.setDisable(true);
 
-        Label lblDutyFree = new Label("Catering Availability:");
+        Label lblDutyFree = new Label("Duty Free Availability:");
         lblDutyFree.setDisable(true);
         ComboBox<Boolean> cboxDutyFree = new ComboBox<>();
         cboxDutyFree.getItems().addAll(Boolean.TRUE, Boolean.FALSE);
@@ -852,6 +858,63 @@ public class Manager extends User {
         cateringMngGrid.add(btnBack, 1, 2);
 
         return cateringMngGrid;
+    }
+
+    GridPane getDutyFreeMngGrid(Scene scene) {
+        GridPane dutyFreeMngGrid = new GridPane();
+        dutyFreeMngGrid.setAlignment(Pos.CENTER);
+        dutyFreeMngGrid.setHgap(10);
+        dutyFreeMngGrid.setVgap(10);
+
+        Label lblSelect = new Label("Select flight to manage duty-free:");
+        ComboBox<Flight> cboxCatSelect = new ComboBox<>();
+        for (int i=0; i<flightSchedule.flightCount; i++) {
+            cboxCatSelect.getItems().add(flightSchedule.flightList[i]);
+        }
+        Label lblResponse = new Label();
+        Button btnManage = new Button("Manage");
+        btnManage.setDisable(true);
+        btnManage.setPrefWidth(150);
+        Button btnBack = new Button("Back");
+        btnBack.setPrefWidth(150);
+
+        cboxCatSelect.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                if (!cboxCatSelect.getSelectionModel().getSelectedItem().dutyFreeAvailable) {
+                    lblResponse.setText("Selected flight does not have duty-free available.");
+                    btnManage.setDisable(true);
+                    return;
+                }
+
+                lblResponse.setText("Valid flight selection. Please click 'Manage' to proceed.");
+
+                btnManage.setDisable(false);
+            }
+        });
+
+        btnManage.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                Flight flight = cboxCatSelect.getSelectionModel().getSelectedItem();
+                scene.setRoot(flight.DutyFree.getMainMenuGrid(scene, getMainMenuGrid(scene)));
+            }
+        });
+
+        btnBack.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                scene.setRoot(getMainMenuGrid(scene));
+            }
+        });
+
+        dutyFreeMngGrid.add(lblSelect, 0, 0);
+        dutyFreeMngGrid.add(cboxCatSelect, 1, 0);
+        dutyFreeMngGrid.add(lblResponse, 0, 1, 2, 1);
+        dutyFreeMngGrid.add(btnManage, 0, 2);
+        dutyFreeMngGrid.add(btnBack, 1, 2);
+
+        return dutyFreeMngGrid;
     }
 
     private void fillBlankTextField(TextField tf) {

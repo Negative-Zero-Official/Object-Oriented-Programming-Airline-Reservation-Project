@@ -70,6 +70,10 @@ public class Traveler extends User {
         btnCancel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Button btnInvoice = new Button("View Invoice");
         btnInvoice.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        Button btnViewCatering = new Button("View Catering Options");
+        btnViewCatering.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        Button btnViewDutyFree = new Button("View Duty Free Options");
+        btnViewDutyFree.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Button btnLogOut = new Button("Log Out");
         btnLogOut.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
@@ -132,6 +136,40 @@ public class Traveler extends User {
             }
         });
 
+        btnViewCatering.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                if (booked==null || !booked.cateringAvailable) {
+                    try {
+                        throw new InvalidChoiceException("Flight with catering not booked.");
+                    } catch (InvalidChoiceException e) {
+                        @SuppressWarnings("unused")
+                        ExceptionWindow error = new ExceptionWindow(e);
+                        return;
+                    }
+                }
+
+                scene.setRoot(booked.cateringMenu.getViewItemGrid(scene, mainMenu));
+            }
+        });
+
+        btnViewDutyFree.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                if (booked==null || !booked.dutyFreeAvailable) {
+                    try {
+                        throw new InvalidChoiceException("Flight with duty free not booked.");
+                    } catch (InvalidChoiceException e) {
+                        @SuppressWarnings("unused")
+                        ExceptionWindow error = new ExceptionWindow(e);
+                        return;
+                    }
+                }
+
+                scene.setRoot(booked.DutyFree.getViewItemGrid(scene, mainMenu));
+            }
+        });
+
         btnLogOut.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
@@ -147,7 +185,9 @@ public class Traveler extends User {
         mainMenu.add(btnBook, 0, 3);
         mainMenu.add(btnCancel, 1, 3);
         mainMenu.add(btnInvoice, 0, 4);
-        mainMenu.add(btnLogOut, 1, 4);
+        mainMenu.add(btnViewCatering, 1, 4);
+        mainMenu.add(btnViewDutyFree, 0, 5);
+        mainMenu.add(btnLogOut, 1, 5);
 
         return mainMenu;
     }

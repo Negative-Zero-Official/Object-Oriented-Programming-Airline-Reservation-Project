@@ -9,7 +9,7 @@ import javafx.scene.layout.*;
 import com.exceptions.*;
 
 public class CateringMenuManagement {
-    GridPane managerGrid;
+    GridPane sourceGrid;
     CateringMenuItem[] cateringMenu;
     private int menuCount;
     private final int maxMenuItems = 100; // Set the max size for catering items
@@ -22,11 +22,11 @@ public class CateringMenuManagement {
     //####################################### JAVAFX IMPLEMENTATION PROGRAM BEGINS HERE ###############################################
 
     private GridPane getMainMenuGrid(Scene scene) {
-        return getMainMenuGrid(scene, managerGrid);
+        return getMainMenuGrid(scene, sourceGrid);
     }
 
     public GridPane getMainMenuGrid(Scene scene, GridPane rootGrid) {
-        managerGrid = rootGrid;
+        sourceGrid = rootGrid;
         GridPane catMenuGrid = new GridPane();
         catMenuGrid.setAlignment(Pos.CENTER);
         catMenuGrid.setHgap(10);
@@ -62,7 +62,7 @@ public class CateringMenuManagement {
         btnBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
-                scene.setRoot(managerGrid);
+                scene.setRoot(sourceGrid);
             }
         });
 
@@ -136,7 +136,12 @@ public class CateringMenuManagement {
         return addItemGrid;
     }
 
-    public GridPane getViewItemGrid(Scene scene) {
+    private GridPane getViewItemGrid(Scene scene) {
+        return getViewItemGrid(scene, sourceGrid);
+    }
+
+    public GridPane getViewItemGrid(Scene scene, GridPane rootGrid) {
+        sourceGrid = rootGrid;
         GridPane viewItemGrid = new GridPane();
         viewItemGrid.setAlignment(Pos.CENTER);
         viewItemGrid.setHgap(10);
@@ -161,7 +166,7 @@ public class CateringMenuManagement {
         btnBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
-                scene.setRoot(getMainMenuGrid(scene));
+                scene.setRoot(sourceGrid);
             }
         });
 

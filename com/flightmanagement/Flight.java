@@ -25,7 +25,7 @@ public class Flight {
     public int vacantResidenceSeats;
     public double residenceSeatPrice;
     public CateringMenuManagement cateringMenu = new CateringMenuManagement();
-    DutyFreeManagement DutyFree = new DutyFreeManagement();
+    public DutyFreeManagement DutyFree = new DutyFreeManagement();
 
     //Default Constructor
     public Flight() {}
