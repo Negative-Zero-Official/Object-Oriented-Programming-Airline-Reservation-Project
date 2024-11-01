@@ -1,8 +1,6 @@
 package com.flightmanagement;
-import java.util.Scanner;
 import com.catering.*;
-import com.dutyfree.DutyFreeManagement;
-import com.exceptions.InvalidChoiceException;
+import com.dutyfree.*;
 
 public class Flight {
     public String flightId;
@@ -26,7 +24,7 @@ public class Flight {
     public int residenceSeats;
     public int vacantResidenceSeats;
     public double residenceSeatPrice;
-    CateringMenuManagement cateringMenu = new CateringMenuManagement();
+    public CateringMenuManagement cateringMenu = new CateringMenuManagement();
     DutyFreeManagement DutyFree = new DutyFreeManagement();
 
     //Default Constructor
@@ -67,22 +65,6 @@ public class Flight {
 
         // Set the initial status of the flight (optional, can be modified as needed)
         this.status = "Scheduled"; // Default status
-    }
-
-    public void manageCateringMenu() {
-        try {
-            cateringMenu.manageCatering();
-        } catch (InvalidChoiceException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void manageDutyFree() {
-        try {
-            DutyFree.manageDutyFree();
-        } catch (InvalidChoiceException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     public String displayPrice(String classType) {
@@ -171,27 +153,8 @@ public class Flight {
         }
     }
 
-    public void setDate() {
-        @SuppressWarnings("resource")
-        Scanner sc =  new Scanner(System.in);
-        System.out.print("Enter day: ");
-        date.day = sc.nextInt();
-        System.out.print("Enter month: ");
-        date.month = sc.nextInt();
-        System.out.print("Enter year: ");
-        date.year  = sc.nextInt();
-    }
-
     public String getDate() {
         return date.toString();
-    }
-
-    public void printCateringMenu() {
-        cateringMenu.printCateringMenu();
-    }
-
-    public void printDutyFreeItems() {
-        DutyFree.printDutyFreeItems();
     }
 
     public void fill() {

@@ -2,15 +2,13 @@ package com.catering;
 
 public class CateringMenuItem {
     public String name;
-    public String type;
+    public CateringType type;
     public String allergens;
-    public String classType;
 
-    public CateringMenuItem(String name, String type, String allergens, String classType) {
+    public CateringMenuItem(String name, CateringType type, String allergens) {
         this.name = name;
         this.type = type;
         this.allergens = allergens;
-        this.classType = classType;
     }
 
     @Override

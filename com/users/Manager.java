@@ -1,4 +1,5 @@
 package com.users;
+
 import com.catering.CateringMenuManagement;
 import com.dutyfree.DutyFreeManagement;
 import com.exceptions.*;
@@ -65,6 +66,13 @@ public class Manager extends User {
             @Override
             public void handle(ActionEvent o) {
                 scene.setRoot(getFlightMngGrid(scene));
+            }
+        });
+
+        btnMCatering.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                scene.setRoot(getCateringMngGrid(scene));
             }
         });
 
@@ -787,6 +795,63 @@ public class Manager extends User {
         delFlightGrid.add(lblResponse, 0, 10, 2, 1);
 
         return delFlightGrid;
+    }
+
+    GridPane getCateringMngGrid(Scene scene) {
+        GridPane cateringMngGrid = new GridPane();
+        cateringMngGrid.setAlignment(Pos.CENTER);
+        cateringMngGrid.setHgap(10);
+        cateringMngGrid.setVgap(10);
+
+        Label lblSelect = new Label("Select flight to manage catering:");
+        ComboBox<Flight> cboxCatSelect = new ComboBox<>();
+        for (int i=0; i<flightSchedule.flightCount; i++) {
+            cboxCatSelect.getItems().add(flightSchedule.flightList[i]);
+        }
+        Label lblResponse = new Label();
+        Button btnManage = new Button("Manage");
+        btnManage.setDisable(true);
+        btnManage.setPrefWidth(150);
+        Button btnBack = new Button("Back");
+        btnBack.setPrefWidth(150);
+
+        cboxCatSelect.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                if (!cboxCatSelect.getSelectionModel().getSelectedItem().cateringAvailable) {
+                    lblResponse.setText("Selected flight does not have catering available.");
+                    btnManage.setDisable(true);
+                    return;
+                }
+
+                lblResponse.setText("Valid flight selection. Please click 'Manage' to proceed.");
+
+                btnManage.setDisable(false);
+            }
+        });
+
+        btnManage.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                Flight flight = cboxCatSelect.getSelectionModel().getSelectedItem();
+                scene.setRoot(flight.cateringMenu.getMainMenuGrid(scene, getMainMenuGrid(scene)));
+            }
+        });
+
+        btnBack.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                scene.setRoot(getMainMenuGrid(scene));
+            }
+        });
+
+        cateringMngGrid.add(lblSelect, 0, 0);
+        cateringMngGrid.add(cboxCatSelect, 1, 0);
+        cateringMngGrid.add(lblResponse, 0, 1, 2, 1);
+        cateringMngGrid.add(btnManage, 0, 2);
+        cateringMngGrid.add(btnBack, 1, 2);
+
+        return cateringMngGrid;
     }
 
     private void fillBlankTextField(TextField tf) {
