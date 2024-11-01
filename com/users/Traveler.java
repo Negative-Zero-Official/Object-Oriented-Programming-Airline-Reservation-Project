@@ -151,7 +151,7 @@ public class Traveler extends User {
             public void handle(ActionEvent o) {
                 email = tfEmail.getText();
                 contactNo = tfPhone.getText();
-                lblResponse.setText("Details confirmed.\nReturning to main menu...\nPlease Wait");
+                lblResponse.setText("Details confirmed.");
             }
         });
 
@@ -168,7 +168,7 @@ public class Traveler extends User {
         inputDetails.add(tfPhone, 1, 1);
         inputDetails.add(btnConfirm, 0, 2);
         inputDetails.add(btnBack, 1, 2);
-        inputDetails.add(lblResponse, 1, 3);
+        inputDetails.add(lblResponse, 1, 3, 2, 1);
 
         return inputDetails;
     }
@@ -186,7 +186,7 @@ public class Traveler extends User {
             }
         });
 
-        flightSchedGrid.add(lblHeader, 0, 0);
+        flightSchedGrid.add(lblHeader, 0, 0, 2, 1);
         flightSchedGrid.add(btnBack, 0, mainFlightSchedule.flightCount+3);
 
         return flightSchedGrid;
@@ -316,7 +316,7 @@ public class Traveler extends User {
             }
         });
 
-        filteredGrid.add(lblHeader, 0, 0);
+        filteredGrid.add(lblHeader, 0, 0, 2, 1);
         filteredGrid.add(lblFlightId, 0, filtered.flightCount+3);
         filteredGrid.add(cboxFlightOptions, 1, filtered.flightCount+3);
         filteredGrid.add(btnBook, 0, filtered.flightCount+4);
@@ -402,7 +402,7 @@ public class Traveler extends User {
         bookingGrid.add(lblSelected, 0, 0);
         bookingGrid.add(lblClassSelect, 0, 1);
         bookingGrid.add(cboxClassOptions, 1, 1);
-        bookingGrid.add(lblSeatPrice, 0, 2);
+        bookingGrid.add(lblSeatPrice, 0, 2, 2, 1);
         bookingGrid.add(lblNoOfSeats, 0, 3);
         bookingGrid.add(spnNoOfSeats, 1, 3);
         bookingGrid.add(lblResponse, 0, 4, 2, 1);
@@ -485,6 +485,7 @@ public class Traveler extends User {
                     noOfSeats = 0;
                     booked = null;
                     classChoice = "";
+                    btnConfirm2.setDisable(true);
                 } else {
                     lblResponse.setText("Incorrect password. Please try again");
                 }

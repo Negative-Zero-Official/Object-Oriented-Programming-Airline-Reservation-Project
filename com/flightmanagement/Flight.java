@@ -194,6 +194,14 @@ public class Flight {
         DutyFree.printDutyFreeItems();
     }
 
+    public void fill() {
+        vacantEconomySeats = economySeats;
+        vacantBusinessSeats = businessSeats;
+        vacantFirstSeats = firstSeats;
+        vacantResidenceSeats = residenceSeats;
+        totalSeats = economySeats + businessSeats + firstSeats + residenceSeats;
+    }
+
     @Override
     public String toString() {
         return flightId;

@@ -1,5 +1,12 @@
 package com.flightmanagement;
 
+import javafx.scene.*;
+import javafx.scene.layout.*;
+import javafx.event.EventHandler;
+import javafx.geometry.*;
+import javafx.scene.control.*;
+import javafx.event.*;
+
 import java.util.Scanner;
 import com.exceptions.InvalidChoiceException;
 
@@ -193,6 +200,47 @@ public class FlightReport {
                     throw new InvalidChoiceException("Invalid Menu Choice");
             }
         }
+    }
+
+    //####################################### JAVAFX IMPLEMENTATION PROGRAM BEGINS HERE ###############################################
+
+    public GridPane getFlightReportGrid(Scene scene, GridPane sourceGrid) {
+        GridPane flightReportGrid = new GridPane();
+        flightReportGrid.setAlignment(Pos.CENTER);
+        flightReportGrid.setHgap(10);
+        flightReportGrid.setVgap(10);
+
+        Label lblHeader = new Label("FLIGHT REPORT");
+        flightReportGrid.add(lblHeader, 0, 0, 5, 1);
+
+        String[] columns = {"Flight ID", "Flight Type", "Status", "Total Seats", "Available Seats"};
+        for (int i=0; i<columns.length; i++) {
+            flightReportGrid.add(new Label(columns[i]), i, 1);
+        }
+
+        int i=0;
+        for (i=0; i<flightSchedule.flightCount; i++) {
+            Flight flight = flightSchedule.flightList[i];
+            if (flight != null) {
+                flightReportGrid.add(new Label(flight.flightId), 0, i+2);
+                flightReportGrid.add(new Label(String.valueOf(flight.type)), 1, i+2);
+                flightReportGrid.add(new Label(flight.status), 2, i+2);
+                flightReportGrid.add(new Label(String.valueOf(flight.totalSeats)), 3, i+2);
+                flightReportGrid.add(new Label(String.valueOf(flight.getVacantSeats())), 4, i+2);
+            }
+        }
+
+        Button btnBack = new Button("Back");
+        flightReportGrid.add(btnBack, 0, i+3);
+
+        btnBack.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent o) {
+                scene.setRoot(sourceGrid);
+            }
+        });
+
+        return flightReportGrid;
     }
 }
 
