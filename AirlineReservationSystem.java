@@ -28,8 +28,10 @@ public class AirlineReservationSystem extends Application {
         Label lblTitle = new Label("Welcome to the Airline Reservation System.\nPlease select how you want to log in:");
         Button btnTraveler = new Button("Traveler Login");
         btnTraveler.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        btnTraveler.setPrefWidth(150);
         Button btnManager = new Button("Manager Login");
         btnManager.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        btnManager.setPrefWidth(150);
         Button btnExit = new Button("Exit");
         btnExit.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 

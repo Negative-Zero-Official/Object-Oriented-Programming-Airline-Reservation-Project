@@ -3,7 +3,6 @@ import com.catering.CateringMenuManagement;
 import com.dutyfree.DutyFreeManagement;
 import com.exceptions.*;
 import com.flightmanagement.*;
-import java.util.Scanner;
 
 import javafx.event.*;
 import javafx.geometry.*;
@@ -12,14 +11,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
-@SuppressWarnings("resource")
 public class Manager extends User {
     Stage stage = new Stage();
     FlightSchedule flightSchedule;
     CateringMenuManagement cateringMenuManagement;
     DutyFreeManagement dutyFreeManagement;
     FlightReport flightReport;
-    Scanner scanner = new Scanner(System.in);
     public Manager(String loginID, String password, FlightSchedule sch, CateringMenuManagement cmm, DutyFreeManagement dfm, FlightReport fr) {
         super(loginID, password);
         flightSchedule = sch;
@@ -27,95 +24,6 @@ public class Manager extends User {
         dutyFreeManagement = dfm;
         flightReport = fr;
         start(stage);
-    }
-
-    public void displayInfo() {
-        System.out.println("Welcome, Manager " + loginID + "!");
-        System.out.println("You have administrator permissions.");
-    }
-
-    public void menu() {
-        boolean managerMenu = true;
-        while (managerMenu) {
-            System.out.println("\n1. Manage Flights");
-            System.out.println("2. Manage Duty-Free");
-            System.out.println("3. Manage Catering");
-            System.out.println("4. Logout");
-            System.out.print("Choose an option: ");
-            int managerChoice = scanner.nextInt();
-            System.out.println();
-            try {
-                switch (managerChoice) {
-                    case 1:
-                        boolean flightManagement = true;
-                        while (flightManagement) {
-                            System.out.println("\n1. Flight Report");
-                            System.out.println("2. Add Flight");
-                            System.out.println("3. Update Flight");
-                            System.out.println("4. View Flights");
-                            System.out.println("5. Delete Flight");
-                            System.out.println("6. Back");
-                            System.out.print("Choose an option: ");
-                            int flightManagementChoice = scanner.nextInt();
-                            System.out.println();
-
-                            switch (flightManagementChoice) {
-                                case 1:
-                                    flightReport.menu();
-                                    break;
-                                case 2:
-                                    // addFlight(flightSchedule);
-                                    break;
-                                case 3:
-                                    // updateFlight(flightSchedule);
-                                    break;
-                                case 4:
-                                    // flightSchedule.viewFlights();
-                                    break;
-                                case 5:
-                                    deleteFlight(flightSchedule);
-                                    break;
-                                case 6:
-                                    flightManagement = false;
-                                    break;
-                                default:
-                                    throw new InvalidChoiceException("Invalid choice. Please try again.");
-                            }
-                        }
-                        break;
-                    case 2:
-                        dutyFreeManagement.manageDutyFree();
-                        break;
-                    case 3:
-                        cateringMenuManagement.manageCatering();
-                        break;
-                    case 4:
-                        managerMenu = false;
-                        break;
-                    default:
-                        throw new InvalidChoiceException("Invalid choice. Please try again.");
-                }
-            } catch (InvalidChoiceException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    // Method to delete flight
-    public void deleteFlight(FlightSchedule flightSchedule) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter Flight ID to cancel: ");
-        String flightId = sc.nextLine();
-        
-        for (Flight flight : flightSchedule.flightList) {
-            if (flight != null && flight.flightId.equals(flightId)) {
-                flight.status = "Canceled"; // Set status to Canceled
-                System.out.println("Flight " + flightId + " has been canceled.");              
-                return;
-            }
-        }
-        System.out.println("Flight not found.");
-        
     }
 
     //####################################### JAVAFX IMPLEMENTATION PROGRAM BEGINS HERE ###############################################
@@ -143,7 +51,9 @@ public class Manager extends User {
         Label lblWelcome = new Label("Welcome, "+loginID);
         Label lblHeader = new Label("Please select an option from the menu below:");
         Button btnMFlights = new Button("Manage Flights");
+        btnMFlights.setPrefWidth(150);
         Button btnMDutyFree = new Button("Manage Duty-Free");
+        btnMDutyFree.setPrefWidth(150);
         Button btnMCatering = new Button("Manage Catering");
         Button btnLogOut = new Button("Log Out");
         btnMFlights.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -185,8 +95,10 @@ public class Manager extends User {
         Label lblHeader = new Label("Please select an option from the menu below:");
         Button btnFlightReport = new Button("Flight Report");
         btnFlightReport.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        btnFlightReport.setPrefWidth(150);
         Button btnAddFlight = new Button("Add Flight");
         btnAddFlight.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        btnAddFlight.setPrefWidth(150);
         Button btnUpdateFlight = new Button("Update Flight");
         btnUpdateFlight.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Button btnViewFlights = new Button("View Flights");
@@ -199,7 +111,7 @@ public class Manager extends User {
         btnFlightReport.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent o) {
-                scene.setRoot(flightReport.getFlightReportGrid(scene, flightMngGrid));
+                scene.setRoot(flightReport.getMenuGrid(scene, flightMngGrid));
             }
         });
         
@@ -248,8 +160,8 @@ public class Manager extends User {
             }
         });
 
-        flightMngGrid.add(lblHeader, 0, 0, 3, 1);
-        flightMngGrid.add(btnFlightReport, 0, 1);
+        flightMngGrid.add(lblHeader, 0, 0, 2, 1);
+        flightMngGrid.add(btnFlightReport, 0, 1, 1, 1);
         flightMngGrid.add(btnAddFlight, 1, 1);
         flightMngGrid.add(btnUpdateFlight, 0, 2);
         flightMngGrid.add(btnViewFlights, 1, 2);
