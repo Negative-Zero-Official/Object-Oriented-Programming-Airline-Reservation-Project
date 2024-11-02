@@ -1,6 +1,10 @@
 
 # Object-Oriented Programming Airline Reservation Project
 
+> [!IMPORTANT]
+> This README is almost completely AI-generated as I was too lazy to write it myself.
+> IT MAY NOT BE 100% ACCURATE. Please go through the program yourself to see its true structure.
+
 ## Overview
 
 This project is a Java-based airline reservation system that demonstrates key principles of Object-Oriented Programming (OOP). It provides functionality for booking, canceling, and viewing flights, managing customer data, and checking seat availability within a command-line interface.
