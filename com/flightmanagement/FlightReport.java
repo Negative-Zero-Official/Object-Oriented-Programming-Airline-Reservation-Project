@@ -17,32 +17,6 @@ public class FlightReport {
         this.flightSchedule = flightSchedule;
     }
 
-    public void generateReport() {
-        if (flightSchedule.flightCount==0) {
-            System.out.println("No flights available in the schedule.");
-            return;
-        }
-
-        System.out.println("==========================================================================================");
-        System.out.println("                                      FLIGHT REPORT                                       ");
-        System.out.println("==========================================================================================");
-        System.out.printf("%-15s %-15s %-15s %-15s %-15s\n", "Flight ID", "Flight Type", "Status", "Total Seats", "Available Seats");
-        System.out.println("==========================================================================================");
-
-        for (Flight flight : flightSchedule.flightList) {
-            if (flight != null) {
-                System.out.printf("%-15s %-15s %-15s %-15d %-15d\n", 
-                    flight.flightId, 
-                    flight.type, 
-                    flight.status, 
-                    flight.totalSeats, 
-                    flight.getVacantSeats());
-            }
-        }
-
-        System.out.println("==========================================================================================");
-    }
-
     // Method to find flights with complete capacity
     private FlightSchedule reportFlightsWithCompleteCapacity() {
     
@@ -131,16 +105,6 @@ public class FlightReport {
         }
 
         return uniqueDestinations;
-        // Print the most frequent destinations
-        // System.out.println("=============================================");
-        // System.out.println("    MOST FREQUENTLY VISITED DESTINATIONS");
-        // System.out.println("=============================================");
-
-        // for (int j = 0; j < uniqueDestinations.length; j++) {
-        //     System.out.printf("Destination: %s\n", uniqueDestinations[j]);
-        // }
-        
-        // System.out.println("=============================================");
     }
 
     //####################################### JAVAFX IMPLEMENTATION PROGRAM BEGINS HERE ###############################################
