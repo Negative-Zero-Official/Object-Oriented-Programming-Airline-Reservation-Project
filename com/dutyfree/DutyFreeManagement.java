@@ -202,10 +202,10 @@ public class DutyFreeManagement {
 
         Button btnBack = new Button("<-");
         viewItemGrid.add(btnBack, 0, 0);
-        Label lblHeader = new Label("FLIGHT CATERING MENU");
+        Label lblHeader = new Label("FLIGHT DUTY-FREE MENU");
         viewItemGrid.add(lblHeader, 0, 1, 3, 1);
 
-        String[] columns = {"Dish Name", "Type", "Allergens"};
+        String[] columns = {"Item name", "Type", "Price"};
         for (int i=0; i<columns.length; i++) {
             viewItemGrid.add(new Label(columns[i]), i*2, 2, 2, 1);
         }
