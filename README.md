@@ -7,20 +7,26 @@
 
 ## Overview
 
-This project is a Java-based airline reservation system that demonstrates key principles of Object-Oriented Programming (OOP). It provides functionality for booking, canceling, and viewing flights, managing customer data, and checking seat availability within a command-line interface.
+This project is an Airline Reservation System implemented in Java with JavaFX for the graphical user interface. It provides functionality for both travelers and managers to interact with flight bookings, schedules, and various airline services.
 
 ## Features
 
-- **Flight Management**: Add, remove, and view flight details.
-- **Booking System**: Reserve and cancel seats on flights.
-- **Customer Management**: Store and manage customer information.
-- **Seat Availability**: Check available seats in each flight.
-- **Object-Oriented Design**: Uses classes like `Flight`, `Reservation`, and `Customer` for modular, organized code.
+- User authentication for travelers and managers
+- Flight booking and management
+- Duty-free item management
+- Catering menu management
+- Flight reporting and analytics
 
-## Technologies Used
+## Main Components
 
-- **Programming Language**: Java
-- **Development Environment**: Visual Studio Code (but any Java IDE should work perfectly fine)
+1. **AirlineReservationSystem**: The main class that initializes the system and handles user logins.
+2. **FlightSchedule**: Manages the list of available flights.
+3. **Flight**: Represents individual flight details.
+4. **DutyFreeManagement**: Handles duty-free item inventory and sales.
+5. **CateringMenuManagement**: Manages the in-flight catering menu.
+6. **FlightReport**: Generates various reports on flight statistics.
+7. **Traveler**: Handles traveler-specific functionalities like booking flights.
+8. **Manager**: Provides manager-specific features for system administration.
 
 ## Installation
 
@@ -33,29 +39,18 @@ To set up and run the project on your local machine:
 2. Open the project in your preferred Java IDE.
 3. Compile and run the code.
 
+
 ## Usage
 
-1. **Running the Program**:
-   - Launch the program through your Java IDE or the command line after compiling.
+- Launch the application and choose between Traveler and Manager login.
+- Travelers can book flights, view schedules, and manage their bookings.
+- Managers can add/update flights, manage duty-free items and catering menus, and view various reports.
 
-2. **Menu Options**:
-   - **Add Flight**: Allows the admin to add new flights.
-   - **Book a Flight**: Lets customers reserve seats on a selected flight.
-   - **Cancel Booking**: Enables customers to cancel an existing booking.
-   - **View Flights**: Displays available flights and their details.
-   - **and more**
+## Authors
 
-## Project Structure
+- Prahlad Gaitonde (Negative-Zero-Official/ItzMeSamYT)
+- Kiran Kolavi Puleri (KIRAN-GITHUB123/Neutron)
 
-- **Main Class**: Contains the main program logic and menu navigation.
-- **Flight Class**: Manages flight information, such as destination, time, and available seats.
-- **Customer Class**: Stores customer details like name, contact information, and reservation status.
-- **Reservation Class**: Manages bookings and cancellations.
+## Acknowledgments
 
-## Contributing
-
-Authors:
-
-Prahlad Gaitonde (Negative-Zero-Official/ItzMeSamYT)
-
-Kiran Kolavi Puleri (KIRAN-GITHUB123/Neutron)
+- JavaFX for providing the GUI framework
