@@ -31,7 +31,7 @@ public class Traveler extends User {
     public void filter(DATE DoT, String origin, String destination) throws InvalidChoiceException {
         filtered = new FlightSchedule();
         for (Flight f : mainFlightSchedule.flightList) {
-            if (f != null && f.origin.equalsIgnoreCase(origin) && f.destination.equalsIgnoreCase(destination) && f.date.equals(DoT)) {
+            if (f != null && f.origin.equalsIgnoreCase(origin) && f.destination.equalsIgnoreCase(destination) && f.date.equals(DoT) && !f.status.equalsIgnoreCase("Cancelled")) {
                 filtered.addFlight(f);
             }
         }
